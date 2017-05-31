@@ -2,13 +2,15 @@ import React from 'react';
 import $ from 'jquery';
 
 
-
+//List all Tasks
 class AllTasks extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             tasks: [],
         };
+        this.completeTask = this.completeTask.bind(this);
+        this.fetchTask = this.fetchTask.bind(this);
     }
 
     fetchTasks(){
@@ -19,14 +21,36 @@ class AllTasks extends React.Component {
       });
     }
 
+    fetchTask(id){
+
+      return $.getJSON(`http://0.0.0.0:8080/tasks/${id}`)
+      .then((data) => {
+        this.setState({ tasks: data.task });
+      });
+
+    }
+
+    completeTask(){
+
+    }
+
     componentDidMount() {
       this.fetchTasks();
     }
 
     render() {
+      let assignClass;
         const allTasks = this.state.tasks.map((task, i) => {
-           return( <div key={i}>
+          if (task.done){
+            assignClass = 'task-complete';
+          }else {
+            assignClass = 'not-done';
+          }
+           return( <div key={i} className={assignClass}>
             <h3 >{task.title}</h3>
+            <p>{task.description}</p>
+            <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>
+            <button>Mark "{task.title}" Completed</button>
         </div>
       );
         });
@@ -36,9 +60,28 @@ class AllTasks extends React.Component {
           </div>
         );
     }
-
 }
+//end list all tasks
 
+//List Single Task
+class ShowTask extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+        task: []
+      };
+  }
+
+  render(){
+    return(
+      <div>
+        HI
+      </div>
+    );
+  }
+}
+//end list single task
+//create Task Form
 class TaskForm extends React.Component {
   constructor(props){
     super(props);
@@ -87,5 +130,6 @@ class TaskForm extends React.Component {
     );
   }
 }
+//end Create Task Form
 
 export default AllTasks;
