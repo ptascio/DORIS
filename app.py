@@ -67,6 +67,13 @@ def mark_task_complete(task_id):
     del tasks[task_index]
     return jsonify({'tasks': [tasks]})
 
+@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+def remove_task(task_id):
+    task = [task for task in tasks if task['id'] == task_id]
+    task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
+    del tasks[task_index]
+    return jsonify({'tasks': [tasks]})
+
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))

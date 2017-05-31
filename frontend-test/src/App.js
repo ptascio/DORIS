@@ -12,6 +12,7 @@ class AllTasks extends React.Component {
         this.completeTask = this.completeTask.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
         this.completeTask = this.completeTask.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
     }
 
     fetchTasks(){
@@ -41,6 +42,16 @@ class AllTasks extends React.Component {
 
     }
 
+    deleteTask(id){
+      $.ajax({
+        type: 'DELETE',
+        url: `http://0.0.0.0:8080/tasks/${id}`,
+        success: function(){
+          this.fetchTasks();
+        }.bind(this)
+      });
+    }
+
     componentDidMount() {
       this.fetchTasks();
     }
@@ -52,7 +63,7 @@ class AllTasks extends React.Component {
         const allTasks = this.state.tasks.map((task, i) => {
           if (task.done){
             assignClass = 'task-complete';
-            button1 = <button>Delete Task</button>;
+            button1 = <button onClick={() => this.deleteTask(task.id)}>Delete Task</button>;
             button2 = <p></p>;
           }else {
             assignClass = 'not-done';
