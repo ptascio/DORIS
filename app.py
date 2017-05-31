@@ -53,6 +53,7 @@ def create_task():
     title = request.json['title']
     description = request.json['description']
     task = insert_task(title, description)
+    print task
     task = iterate_task(task)
     tasks.append(task)
     # task = {
