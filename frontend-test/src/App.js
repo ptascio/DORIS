@@ -11,6 +11,7 @@ class AllTasks extends React.Component {
         };
         this.completeTask = this.completeTask.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
+        this.completeTask = this.completeTask.bind(this);
     }
 
     fetchTasks(){
@@ -22,7 +23,6 @@ class AllTasks extends React.Component {
     }
 
     fetchTask(id){
-
       return $.getJSON(`http://0.0.0.0:8080/tasks/${id}`)
       .then((data) => {
         this.setState({ tasks: data.task });
@@ -30,7 +30,14 @@ class AllTasks extends React.Component {
 
     }
 
-    completeTask(){
+    completeTask(id){
+      $.ajax({
+        type: 'PATCH',
+        url: `http://0.0.0.0:8080/tasks/${id}`,
+        success: function(){
+          this.fetchTasks();
+        }.bind(this)
+      });
 
     }
 
@@ -40,17 +47,24 @@ class AllTasks extends React.Component {
 
     render() {
       let assignClass;
+      let button1;
+      let button2;
         const allTasks = this.state.tasks.map((task, i) => {
           if (task.done){
             assignClass = 'task-complete';
+            button1 = <button>Delete Task</button>;
+            button2 = <p></p>;
           }else {
             assignClass = 'not-done';
+            button1 = <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>;
+            button2 = <button onClick={() => this.completeTask(task.id)}>Mark "{task.title}" Completed</button>;
           }
            return( <div key={i} className={assignClass}>
             <h3 >{task.title}</h3>
             <p>{task.description}</p>
-            <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>
-            <button>Mark "{task.title}" Completed</button>
+            {button1}
+            {button2}
+
         </div>
       );
         });
@@ -63,24 +77,6 @@ class AllTasks extends React.Component {
 }
 //end list all tasks
 
-//List Single Task
-class ShowTask extends React.Component {
-  constructor(props){
-      super(props);
-      this.state = {
-        task: []
-      };
-  }
-
-  render(){
-    return(
-      <div>
-        HI
-      </div>
-    );
-  }
-}
-//end list single task
 //create Task Form
 class TaskForm extends React.Component {
   constructor(props){

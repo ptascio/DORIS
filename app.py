@@ -57,5 +57,16 @@ def create_task():
     tasks.append(task)
     return jsonify({'tasks': [tasks]})
 
+@app.route('/tasks/<int:task_id>', methods=['PATCH'])
+def mark_task_complete(task_id):
+    task = [task for task in tasks if task['id'] == task_id]
+    task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
+    new_task = task
+    new_task[0]['done'] = True
+    tasks.append(new_task[0])
+    del tasks[task_index]
+    return jsonify({'tasks': [tasks]})
+
+
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
