@@ -48,7 +48,10 @@ class AllTasks extends React.Component {
         url: `http://0.0.0.0:8080/tasks/${id}`,
         success: function(){
           this.fetchTasks();
-        }.bind(this)
+        }.bind(this),
+        error: function(){
+          console.log("error");
+        }
       });
     }
 
@@ -57,7 +60,6 @@ class AllTasks extends React.Component {
     }
 
     render() {
-      debugger
       let assignClass;
       let button1;
       let button2;

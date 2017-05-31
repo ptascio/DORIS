@@ -10,7 +10,7 @@ from models import *
 app = Flask(__name__)
 CORS(app)
 
-tasks = fetch_all_tasks()
+
 array_of_data = []
 def iterate_tasks(data):
     for idx, entry in enumerate(data):
@@ -29,11 +29,9 @@ def iterate_task(task):
             json_data['done'] = val
             return json_data
 
-
+tasks = fetch_all_tasks()
 iterate_tasks(tasks)
 tasks = array_of_data
-print tasks
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -52,19 +50,17 @@ def get_task(task_id):
 # request.json.get(description, ""),
 @app.route('/tasks', methods=['POST'])
 def create_task():
-    print request
-    print request.form
-    print request.json
-    print request.json['title']
-    print request.json['description']
-
-    task = {
-        'id': tasks[-1]['id'] + 1,
-        'title': request.json['title'],
-        'description': request.json['description'],
-        'done': False
-    }
+    title = request.json['title']
+    description = request.json['description']
+    task = insert_task(title, description)
+    task = iterate_task(task)
     tasks.append(task)
+    # task = {
+    #     'id': tasks[-1]['id'] + 1,
+    #     'title': request.json['title'],
+    #     'description': request.json['description'],
+    #     'done': False
+    # }
     return jsonify({'tasks': [tasks]})
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
@@ -72,16 +68,15 @@ def mark_task_complete(task_id):
     task = [task for task in tasks if task['id'] == task_id]
     task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
     new_task = task
-    new_task[0]['done'] = True
+    new_task[0]['done'] = 1
     tasks.append(new_task[0])
     del tasks[task_index]
     return jsonify({'tasks': [tasks]})
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def remove_task(task_id):
-    task = [task for task in tasks if task['id'] == task_id]
-    task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
-    del tasks[task_index]
+    delete_task(task_id)
+    print tasks
     return jsonify({'tasks': [tasks]})
 
 
