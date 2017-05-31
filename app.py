@@ -3,6 +3,7 @@ from flask import Flask
 from flask import jsonify
 from flask import abort
 from flask_cors import CORS
+from flask import request
 
 
 app = Flask(__name__)
@@ -38,6 +39,23 @@ def get_task(task_id):
     if len(task) == 0:
         abort(404)
     return jsonify({'task': task[0]})
+# request.json.get(description, ""),
+@app.route('/tasks', methods=['POST'])
+def create_task():
+    print request
+    print request.form
+    print request.json
+    print request.json['title']
+    print request.json['description']
+
+    task = {
+        'id': tasks[-1]['id'] + 1,
+        'title': request.json['title'],
+        'description': request.json['description'],
+        'done': False
+    }
+    tasks.append(task)
+    return jsonify({'tasks': [tasks]})
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
