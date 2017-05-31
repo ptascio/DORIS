@@ -11,7 +11,29 @@ app = Flask(__name__)
 CORS(app)
 
 tasks = fetch_all_tasks()
+array_of_data = []
+def iterate_tasks(data):
+    for idx, entry in enumerate(data):
+        array_of_data.append(iterate_task(data[idx]))
+
+def iterate_task(task):
+    json_data = {}
+    for idx, val in enumerate(task):
+        if (idx == 0):
+            json_data['id'] = val
+        elif (idx == 1):
+            json_data['title'] = val
+        elif (idx == 2):
+            json_data['description'] = val
+        else:
+            json_data['done'] = val
+            return json_data
+
+
+iterate_tasks(tasks)
+tasks = array_of_data
 print tasks
+
 
 @app.route('/', methods=['GET'])
 def index():

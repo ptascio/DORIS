@@ -57,6 +57,7 @@ class AllTasks extends React.Component {
     }
 
     render() {
+      debugger
       let assignClass;
       let button1;
       let button2;
