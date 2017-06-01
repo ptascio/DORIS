@@ -16,9 +16,9 @@ class AllTasks extends React.Component {
     }
 
     fetchTasks(){
-      // return $.getJSON('http://flask-todo-peter-tascio-joelbcastillo.c9users.io/tasks')
       return $.getJSON('http://0.0.0.0:8080/tasks')
       .then((data) => {
+        console.log(data.tasks);
         this.setState({ tasks: data.tasks });
       });
     }

@@ -52,10 +52,11 @@ def get_task(task_id):
 def create_task():
     title = request.json['title']
     description = request.json['description']
-    task = insert_task(title, description)
-    print task
-    task = iterate_task(task)
-    tasks.append(task)
+    insert_task(title, description)
+    tasks = fetch_all_tasks()
+    iterate_tasks(tasks)
+    tasks = array_of_data
+    print tasks
     # task = {
     #     'id': tasks[-1]['id'] + 1,
     #     'title': request.json['title'],
