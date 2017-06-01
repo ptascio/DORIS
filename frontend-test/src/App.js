@@ -63,24 +63,30 @@ class AllTasks extends React.Component {
       let assignClass;
       let button1;
       let button2;
+      let homeButton;
+      if (this.state.tasks.length === 1) {
+        homeButton = <button onClick={() => this.fetchTasks()}>See All Tasks</button>;
+      }else {
+        homeButton = <p></p>;
+      }
         const allTasks = this.state.tasks.map((task, i) => {
           if (task.done){
             assignClass = 'task-complete task-item-default';
-            button1 = <button onClick={() => this.deleteTask(task.id)}>Delete Task</button>;
+            button1 = <button onClick={() => this.deleteTask(task.id)} className="delete-task">Delete Task</button>;
             button2 = <p></p>;
           }else {
             assignClass = 'not-done task-item-default';
             button1 = <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>;
-            button2 = <button onClick={() => this.completeTask(task.id)}>Mark "{task.title}" Completed</button>;
+            button2 = <button onClick={() => this.completeTask(task.id)} className="mark-complete-task">Mark "{task.title}" Completed</button>;
           }
            return( <div key={i} className={assignClass}>
             <h3 >{task.title}</h3>
             <p>{task.description}</p>
             {button1}
             {button2}
-
-        </div>
-      );
+            {homeButton}
+            </div>
+          );
         });
         return(
           <div>
