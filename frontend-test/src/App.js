@@ -119,10 +119,10 @@ class TaskForm extends React.Component {
     };
 
     $.ajax({
-    type: 'POST',
-    url: 'http://0.0.0.0:8080/tasks',
-    data: JSON.stringify(data),
-    contentType: 'application/json;charset=UTF-8'
+      type: 'POST',
+      url: 'http://0.0.0.0:8080/tasks',
+      data: JSON.stringify(data),
+      contentType: 'application/json;charset=UTF-8'
   });
   }
 

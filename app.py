@@ -63,23 +63,25 @@ def create_task():
     #     'description': request.json['description'],
     #     'done': False
     # }
-    return None
+    return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def mark_task_complete(task_id):
-    task = [task for task in tasks if task['id'] == task_id]
-    task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
-    new_task = task
-    new_task[0]['done'] = 1
-    tasks.append(new_task[0])
-    del tasks[task_index]
-    return jsonify({'tasks': [tasks]})
+    # task = [task for task in tasks if task['id'] == task_id]
+    # task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
+    # new_task = task
+    # new_task[0]['done'] = 1
+    # tasks.append(new_task[0])
+    # del tasks[task_index]
+    complete_task(task_id)
+    # return jsonify({'tasks': [tasks]})
+    return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def remove_task(task_id):
     delete_task(task_id)
     print tasks
-    return jsonify({'tasks': [tasks]})
+    return get_tasks()
 
 
 if __name__ == '__main__':
