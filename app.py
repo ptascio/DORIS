@@ -49,32 +49,17 @@ def get_task(task_id):
     if len(task) == 0:
         abort(404)
     return jsonify({'task': [task[0]]})
-# request.json.get(description, ""),
+
 @app.route('/tasks', methods=['POST'])
 def create_task():
     title = request.json['title']
     description = request.json['description']
-    print title
-    print description
     insert_task(title, description)
-    # task = {
-    #     'id': tasks[-1]['id'] + 1,
-    #     'title': request.json['title'],
-    #     'description': request.json['description'],
-    #     'done': False
-    # }
     return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def mark_task_complete(task_id):
-    # task = [task for task in tasks if task['id'] == task_id]
-    # task_index = next(index for (index, d) in enumerate(tasks) if d["id"] == task_id)
-    # new_task = task
-    # new_task[0]['done'] = 1
-    # tasks.append(new_task[0])
-    # del tasks[task_index]
     complete_task(task_id)
-    # return jsonify({'tasks': [tasks]})
     return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
