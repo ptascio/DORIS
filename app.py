@@ -11,10 +11,11 @@ app = Flask(__name__)
 CORS(app)
 
 
-array_of_data = []
 def iterate_tasks(data):
+    array_of_data = []
     for idx, entry in enumerate(data):
         array_of_data.append(iterate_task(data[idx]))
+    return array_of_data
 
 def iterate_task(task):
     json_data = {}
@@ -29,9 +30,7 @@ def iterate_task(task):
             json_data['done'] = val
             return json_data
 
-tasks = fetch_all_tasks()
-iterate_tasks(tasks)
-tasks = array_of_data
+tasks = []
 
 @app.route('/', methods=['GET'])
 def index():
@@ -39,6 +38,9 @@ def index():
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
+    print 'in get tasks'
+    tasks = fetch_all_tasks()
+    tasks = iterate_tasks(tasks)
     return jsonify({'tasks': tasks})
 
 @app.route('/tasks/<int:task_id>', methods=['GET'])
@@ -52,18 +54,16 @@ def get_task(task_id):
 def create_task():
     title = request.json['title']
     description = request.json['description']
+    print title
+    print description
     insert_task(title, description)
-    tasks = fetch_all_tasks()
-    iterate_tasks(tasks)
-    tasks = array_of_data
-    print tasks
     # task = {
     #     'id': tasks[-1]['id'] + 1,
     #     'title': request.json['title'],
     #     'description': request.json['description'],
     #     'done': False
     # }
-    return jsonify({'tasks': [tasks]})
+    return None
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def mark_task_complete(task_id):

@@ -6,7 +6,7 @@ def insert_task(title, description):
     cur = con.cursor()
     cur.execute("INSERT INTO tasks (title, description) VALUES (?,?)", (title, description))
     con.commit()
-    con.close
+    con.close()
 
 
 def fetch_all_tasks():
