@@ -65,11 +65,11 @@ class AllTasks extends React.Component {
       let button2;
         const allTasks = this.state.tasks.map((task, i) => {
           if (task.done){
-            assignClass = 'task-complete';
+            assignClass = 'task-complete task-item-default';
             button1 = <button onClick={() => this.deleteTask(task.id)}>Delete Task</button>;
             button2 = <p></p>;
           }else {
-            assignClass = 'not-done';
+            assignClass = 'not-done task-item-default';
             button1 = <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>;
             button2 = <button onClick={() => this.completeTask(task.id)}>Mark "{task.title}" Completed</button>;
           }
@@ -83,8 +83,17 @@ class AllTasks extends React.Component {
       );
         });
         return(
-          <div>{allTasks}
+          <div>
+            <h1>My ToDo List</h1>
             <TaskForm />
+            <div className="center-flex">
+              <div className="tasks-container">
+
+                  {allTasks}
+
+              </div>
+            </div>
+
           </div>
         );
     }
@@ -129,12 +138,13 @@ class TaskForm extends React.Component {
   render(){
     return(
       <div>
+        <h2>Create a ToDo:</h2>
         <form>
-          <label>Title</label>
-          <input name="title" onChange={this.handleChange}/>
-          <label>Description</label>
-          <textarea name="description" onChange={this.handleChange}></textarea>
-          <button onClick={this.submitState}>Submit Task</button>
+          <label>Title</label><br />
+          <input name="title" onChange={this.handleChange}/><br />
+          <label>Description</label><br />
+          <textarea name="description" onChange={this.handleChange}></textarea><br />
+          <button onClick={this.submitState}>Submit ToDo</button><br />
         </form>
       </div>
     );

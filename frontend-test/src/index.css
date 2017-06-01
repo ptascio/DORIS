@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  text-align: center;
 }
 
 .task-complete {
@@ -11,4 +12,32 @@ body {
 
 .not-done {
   color: green;
+}
+
+.center-flex {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  border: 1px solid #000;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.inner-container {
+  flex: auto;
+}
+
+
+.task-item-default {
+    height: 200px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 200px;
+    border: 1px solid #000;
+    margin: 5px;
 }
