@@ -1,5 +1,7 @@
 # ToDo App Using SQLite 3, Flask/Python and React
 
+![home-page-image](https://github.com/ptascio/DORIS/blob/master/images/ScreenShot.jpg)
+
 ## 1. Clone This Repo
 In your terminal:
 
@@ -29,4 +31,4 @@ Run ```npm-install``` and then ```npm-start```.
 In the original terminal window run ```python app.py```.
 
 ## 6. Using the App
-Your app is running at ```http://localhost:3000/``` so visit that link in your favorite browser. You will be able to add, view, mark as complete and delete the tasks on your todo list. 
+Your app is running at ```http://localhost:3000/``` so visit that link in your favorite browser. You will be able to add, view, mark as complete and delete the tasks on your todo list.
