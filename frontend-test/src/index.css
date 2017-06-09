@@ -54,6 +54,12 @@ button {
   border: 1px solid blue;
 }
 
+.mark-incomplete-task {
+  background: green;
+  color: #fff;
+  border: 1px solid green;
+}
+
 .delete-task {
   background: red;
   color: #fff;
