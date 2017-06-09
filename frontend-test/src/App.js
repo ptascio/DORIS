@@ -111,10 +111,12 @@ class TaskForm extends React.Component {
     super(props);
     this.state = {
       title: "",
-      description: ""
+      description: "",
+      showErrors: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitState = this.submitState.bind(this);
+
   }
 
   handleChange(e){
@@ -127,25 +129,33 @@ class TaskForm extends React.Component {
   }
 
   submitState(){
-    this.validateEntry();
-    var data = {
-      'title': this.state.title,
-      'description': this.state.description
-    };
+    let isvalid = this.entryIsNotValid();
+    if (isvalid){
 
-    $.ajax({
-      type: 'POST',
-      url: 'http://0.0.0.0:8080/tasks',
-      data: JSON.stringify(data),
-      contentType: 'application/json;charset=UTF-8'
-  });
+    }else {
+      var data = {
+        'title': this.state.title,
+        'description': this.state.description
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://0.0.0.0:8080/tasks',
+        data: JSON.stringify(data),
+        contentType: 'application/json;charset=UTF-8'
+      });
+    }
   }
 
-  validateEntry(){
-    if (this.state.title.length < 1 || this.state.description.length < 1){
-      return false;
+  entryIsNotValid(){
+    if (this.state.title.length < 1 && this.state.description.length < 1){
+      this.setState({
+        showErrors: true
+      });
+      return true;
     }
-    return true;
+
+    return false;
   }
 
   renderErrors(errors){
@@ -157,9 +167,16 @@ class TaskForm extends React.Component {
   }
 
   render(){
+    let errs;
+    if (this.state.showErrors){
+      errs = <p className="errors">*Both Fields Must Be Filled In</p>;
+    }else {
+      errs = <p></p>;
+    }
     return(
       <div>
         <h2>Create a ToDo:</h2>
+        {errs}
         <form>
           <label>Title</label><br />
           <input name="title" onChange={this.handleChange}/><br />
