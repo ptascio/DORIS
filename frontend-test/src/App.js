@@ -127,6 +127,7 @@ class TaskForm extends React.Component {
   }
 
   submitState(){
+    this.validateEntry();
     var data = {
       'title': this.state.title,
       'description': this.state.description
@@ -138,6 +139,21 @@ class TaskForm extends React.Component {
       data: JSON.stringify(data),
       contentType: 'application/json;charset=UTF-8'
   });
+  }
+
+  validateEntry(){
+    if (this.state.title.length < 1 || this.state.description.length < 1){
+      return false;
+    }
+    return true;
+  }
+
+  renderErrors(errors){
+    if (errors){
+      return <p className="errors">*Both Fields Must Be Filled In</p>;
+    }else {
+      return <p></p>;
+    }
   }
 
   render(){
