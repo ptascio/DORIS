@@ -58,6 +58,9 @@ def create_task():
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def mark_task_complete(task_id):
+    task = fetch_task(task_id)
+    task = iterate_task(task)
+    print task
     complete_task(task_id)
     return get_tasks()
 

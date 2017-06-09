@@ -39,3 +39,11 @@ def complete_task(paramid):
     con.execute("UPDATE tasks SET done = 1 WHERE id LIKE (?)", (id,))
     con.commit()
     con.close()
+
+def incomplete_task(paramid):
+    id = str(paramid)
+    con = sql.connect("database.db")
+    cur = con.cursor()
+    con.execute("UPDATE tasks SET done = 0 WHERE id LIKE (?)", (id,))
+    con.commit()
+    con.close()

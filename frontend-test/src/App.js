@@ -39,7 +39,6 @@ class AllTasks extends React.Component {
           this.fetchTasks();
         }.bind(this)
       });
-
     }
 
     deleteTask(id){
