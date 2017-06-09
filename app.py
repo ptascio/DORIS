@@ -38,7 +38,6 @@ def index():
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
-    print 'in get tasks'
     tasks = fetch_all_tasks()
     tasks = iterate_tasks(tasks)
     return jsonify({'tasks': tasks})
@@ -66,11 +65,9 @@ def mark_task_complete(task_id):
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def remove_task(task_id):
     delete_task(task_id)
-    print tasks
     return get_tasks()
 
 def complete_or_incomplete(status, task_id):
-    print status
     if(status == 1):
         incomplete_task(task_id)
     else:
