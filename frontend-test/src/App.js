@@ -37,8 +37,6 @@ class AllTasks extends React.Component {
       $.ajax({
         type: 'PATCH',
         url: `http://0.0.0.0:8080/tasks/${id}`,
-        status: JSON.stringify(status),
-        contentType: 'application/json;charset=UTF-8',
         success: function(){
           this.fetchTasks();
         }.bind(this)
@@ -140,7 +138,7 @@ class TaskForm extends React.Component {
   submitState(){
     let isvalid = this.entryIsNotValid();
     if (isvalid){
-
+      alert("fill in both fields please");
     }else {
       var data = {
         'title': this.state.title,
@@ -157,13 +155,12 @@ class TaskForm extends React.Component {
   }
 
   entryIsNotValid(){
-    if (this.state.title.length < 1 && this.state.description.length < 1){
+    if (this.state.title.length < 1 || this.state.description.length < 1){
       this.setState({
         showErrors: true
       });
       return true;
     }
-
     return false;
   }
 
