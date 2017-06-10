@@ -60,7 +60,7 @@ def mark_task_complete(task_id):
     task = fetch_task(task_id)
     task = iterate_task(task)
     status = task['done']
-    complete_task(task_id, status)
+    toggle_complete_task(task_id, status)
     return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
@@ -68,11 +68,6 @@ def remove_task(task_id):
     delete_task(task_id)
     return get_tasks()
 
-def complete_or_incomplete(status, task_id):
-    if(status == 1):
-        incomplete_task(task_id)
-    else:
-        complete_task(task_id)
 
 
 if __name__ == '__main__':
