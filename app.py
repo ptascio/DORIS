@@ -57,10 +57,10 @@ def create_task():
 
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
 def mark_task_complete(task_id):
-    print request.json
     task = fetch_task(task_id)
     task = iterate_task(task)
-    complete_or_incomplete(task['done'], task_id)
+    status = task['done']
+    complete_task(task_id, status)
     return get_tasks()
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])

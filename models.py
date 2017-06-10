@@ -32,11 +32,14 @@ def fetch_task(paramid):
     result = con.execute("SELECT * FROM tasks WHERE id LIKE (?)", (id,))
     return result.fetchone()
 
-def complete_task(paramid):
+def complete_task(paramid, status):
+    newStatus = new_status(status)
+    print status
+    print newStatus
     id = str(paramid)
     con = sql.connect("database.db")
     cur = con.cursor()
-    con.execute("UPDATE tasks SET done = 1 WHERE id LIKE (?)", (id,))
+    con.execute("UPDATE tasks SET done = ? WHERE id LIKE (?)", (newStatus, id))
     con.commit()
     con.close()
 
@@ -47,3 +50,9 @@ def incomplete_task(paramid):
     con.execute("UPDATE tasks SET done = 0 WHERE id LIKE (?)", (id,))
     con.commit()
     con.close()
+
+def new_status(status):
+    if(status == 1):
+        return 0
+    else:
+        return 1

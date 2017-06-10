@@ -73,11 +73,11 @@ class AllTasks extends React.Component {
           if (task.done){
             assignClass = 'task-complete task-item-default';
             button1 = <button onClick={() => this.deleteTask(task.id)} className="delete-task">Delete Task</button>;
-            button2 = <button onClick={() => this.completeTask(task.id, 0)} className="mark-incomplete-task">Mark Incomplete</button>;
+            button2 = <button onClick={() => this.completeTask(task.id)} className="mark-incomplete-task">Mark Incomplete</button>;
           }else {
             assignClass = 'not-done task-item-default';
             button1 = <button onClick={() => this.fetchTask(task.id)}>Show This Task</button>;
-            button2 = <button onClick={() => this.completeTask(task.id, 1)} className="mark-complete-task">Mark Completed</button>;
+            button2 = <button onClick={() => this.completeTask(task.id)} className="mark-complete-task">Mark Completed</button>;
           }
            return( <div key={i} className={assignClass}>
             <h3 >{task.title}</h3>
