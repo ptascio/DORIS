@@ -17,7 +17,6 @@ def fetch_all_tasks():
 
 def delete_task(paramid):
     id = str(paramid)
-    print id
     con = sql.connect("database.db")
     cur = con.cursor()
     con.execute("DELETE FROM tasks WHERE id LIKE (?)", (id,))

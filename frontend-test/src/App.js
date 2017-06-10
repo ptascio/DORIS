@@ -8,6 +8,7 @@ class AllTasks extends React.Component {
         super(props);
         this.state = {
             tasks: [],
+            task: []
         };
         this.completeTask = this.completeTask.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
@@ -18,14 +19,16 @@ class AllTasks extends React.Component {
     fetchTasks(){
       return $.getJSON('http://0.0.0.0:8080/tasks')
       .then((data) => {
-        this.setState({ tasks: data.tasks });
+        this.setState({
+          tasks: data.tasks,
+          task: [] });
       });
     }
 
     fetchTask(id){
       return $.getJSON(`http://0.0.0.0:8080/tasks/${id}`)
       .then((data) => {
-        this.setState({ tasks: data.task });
+        this.setState({ task: data.task });
       });
 
     }
@@ -64,12 +67,17 @@ class AllTasks extends React.Component {
       let button1;
       let button2;
       let homeButton;
-      if (this.state.tasks.length === 1) {
+      let tasksArray;
+
+      if (this.state.task.length === 1){
+        tasksArray = this.state.task;
         homeButton = <button onClick={() => this.fetchTasks()}>See All Tasks</button>;
+        console.log("in here");
       }else {
+        tasksArray = this.state.tasks;
         homeButton = <p></p>;
       }
-        const allTasks = this.state.tasks.map((task, i) => {
+        const allTasks = tasksArray.map((task, i) => {
           if (task.done){
             assignClass = 'task-complete task-item-default';
             button1 = <button onClick={() => this.deleteTask(task.id)} className="delete-task">Delete Task</button>;
