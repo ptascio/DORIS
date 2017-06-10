@@ -5,6 +5,11 @@ body {
   text-align: center;
 }
 
+form input, textarea {
+  font-size: 14px;
+  padding: 5px;
+}
+
 .task-complete {
   text-decoration: line-through;
   color: black;
@@ -14,11 +19,14 @@ body {
   color: green;
 }
 
+.not-done p {
+  color: black;
+}
+
 .center-flex {
   display: block;
   margin: 0 auto;
   width: 80%;
-  border: 1px solid #000;
 }
 
 .tasks-container {

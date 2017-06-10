@@ -184,10 +184,10 @@ class TaskForm extends React.Component {
         <h2>Create a ToDo:</h2>
         {errs}
         <form>
-          <label>Title</label><br />
+          <label>Title:</label><br />
           <input name="title" onChange={this.handleChange}/><br />
-          <label>Description</label><br />
-          <textarea name="description" onChange={this.handleChange}></textarea><br />
+          <label>Description:</label><br />
+          <textarea name="description" cols="40" rows="10" onChange={this.handleChange}></textarea><br />
           <button onClick={this.submitState}>Submit ToDo</button><br />
         </form>
       </div>
